@@ -1,0 +1,61 @@
+#define LED_PIN 13
+#define BUTTON_PIN 12
+
+#include <Servo.h>
+Servo Servo1;
+int pos = 0;
+int coolDown = 100;
+int nextCigCD = 200;
+bool buttonCheck = false;
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+
+  Servo1.attach(11);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+   delay(50);
+
+   if (coolDown <= nextCigCD) coolDown++;
+   Serial.print("cooldown:");
+   Serial.println(coolDown);
+   //checks if button was pressed, then move cigarette releasing servo if cooldown is over
+   //can change nextCigCD to adjust timer to your needs
+   if (digitalRead(BUTTON_PIN) == HIGH) {
+    if (coolDown >= nextCigCD) {
+      digitalWrite(LED_PIN, LOW);
+      Servo1.write(500);
+      digitalWrite(LED_PIN, HIGH);
+      delay(500);
+      digitalWrite(LED_PIN, LOW);
+      delay(500);
+      digitalWrite(LED_PIN, HIGH);
+      delay(500);
+      digitalWrite(LED_PIN, LOW);
+      delay(500);
+      digitalWrite(LED_PIN, HIGH);
+      delay(500);
+      digitalWrite(LED_PIN, LOW);
+      coolDown = 0;
+    }
+    //if you press the button while the cooldown isnt over, you increase your timer by random amount, caps at negative twice the nextCigCD to prevent waiting too long 
+    else {
+      digitalWrite(LED_PIN, HIGH);
+      coolDown -= abs(coolDown/2) + random(11, 50 + abs(coolDown));
+      if (coolDown <= -(nextCigCD * 2)) coolDown = -(nextCigCD * 2);
+      delay(1500);
+    }
+  }
+  else {
+    digitalWrite(LED_PIN, LOW);
+
+    Servo1.write(0);
+  }
+
+   
+}
