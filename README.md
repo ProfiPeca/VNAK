@@ -7,8 +7,8 @@ Put the VNAK into a charger to power up, add some cigarettes and press the butto
 1. Purchase Arduino Uno with a breadBoard, small/micro servo, some cables, resistors, LED and button
 2. Download Arduino IDE software in your computer
 3. Copy+Paste code from GitHub into new sketch
-4.Plug in your Arduino Uno using an USB-B/USB-A cable into your PC
-5.Upload your code into the Arduino
+4. Plug in your Arduino Uno using an USB-B/USB-A cable into your PC
+5. Upload your code into the Arduino
 ### Assembly of VNAK
 1. Carefully pin components into correct spots
 2. Put into a box
